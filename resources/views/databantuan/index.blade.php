@@ -1,6 +1,7 @@
 <x-app>
 
     <x-slot:title>{{ $title }}</x-slot>
+
     <a href="#" class="btn btn-primary" text-center text->Tambah Data</a>
     <div class="container mt-5">
         <div class="card shadow ">
@@ -22,9 +23,28 @@
                             </tr>
                         </thead>
                         </tbody>
+                        @foreach ($databantuans as $index => $databantuan)
+                            <tr>
+                                <td>{{ $index + 1 }}</td>
+                                <td>{{ $databantuan->nokk }}</td>
+                                <td>{{ $databantuan->nik }}</td>
+                                <td>{{ $databantuan->namapenerima }}</td>
+                                <td>{{ $databantuan->jeniskelamin }}</td>
+                                <td>{{ $databantuan->alamat }}</td>
+                                <td>{{ $databantuan->pekerjaan }}</td>
+                                <td>{{ $databantuan->keterangan }}</td>
+                                <td>
+                                    <div class="d-flex justify-content">
+                                        <a href="" class="btn btn-warning m-1">edit</a>
+                                        <a href="" class="btn btn-danger m-1">hapus</a>
+                                    </div>
+                                </td>
+
+
+                            </tr>
+                        @endforeach
+
                     </table>
-
-
 
                 </div>
 

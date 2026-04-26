@@ -6,34 +6,34 @@
             <div class="card-body p-5">
                 <h3 class="mb-4 fw-bold text-center">Form Data Bantuan</h3>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">No KK</label>
+                    <label for="nokk" class="form-label">No KK</label>
                     <input type="text" class="form-control">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">NIK</label>
+                    <label for="nik" class="form-label">NIK</label>
                     <input type="text" class="form-control">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Nama Penerima</label>
+                    <label for="namapenerima" class="form-label">Nama Penerima</label>
                     <input type="text" class="form-control">
                 </div>
                 <div class="mb-3">
-                    <label class="form-label">Jenis Kelamin</label>
+                    <label for="jeniskelamin" class="form-label">Jenis Kelamin</label>
                     <select class="form-select" name="Jenis Kelamin">
                         <option value="1">Laki-Laki</option>
                         <option value="2">Perempuan</option>
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Alamat</label>
+                    <label for="alamat" class="form-label">Alamat</label>
                     <input type="text" class="form-control">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Pekerjaan</label>
+                    <label for="pekerjaan" class="form-label">Pekerjaan</label>
                     <input type="text" class="form-control">
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputEmail1" class="form-label">Keterangan</label>
+                    <label for="keterangan" class="form-label">Keterangan</label>
                     <input type="text" class="form-control">
                 </div>
 
