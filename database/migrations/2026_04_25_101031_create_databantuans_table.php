@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('databantuans', function (Blueprint $table) {
             $table->id();
-            $table->string('nokk');
-            $table->string('nik');
+            $table->integer('nokk');
+            $table->integer('nik');
             $table->string('namapenerima');
             $table->string('jeniskelamin');
             $table->text('alamat');

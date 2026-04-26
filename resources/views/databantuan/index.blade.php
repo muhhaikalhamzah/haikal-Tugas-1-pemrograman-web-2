@@ -2,7 +2,7 @@
 
     <x-slot:title>{{ $title }}</x-slot>
 
-    <a href="#" class="btn btn-primary" text-center text->Tambah Data</a>
+    <a class="btn btn-primary mb-3" href="{{ route('databantuan.create') }}" role="button">tambah data</a>
     <div class="container mt-5">
         <div class="card shadow ">
             <div class="card-body p-5">

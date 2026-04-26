@@ -12,9 +12,9 @@ class DatabantuanController extends Controller
      */
     public function index()
     {
-        return view('databantuan.index',[
+        return view('databantuan.index', [
         'title' => 'APLIKASI BANSOS',
-        'databantuans'=> Databantuan::all()
+        'databantuans' => Databantuan::latest()->get()
         ]);
     }
 
@@ -23,7 +23,9 @@ class DatabantuanController extends Controller
      */
     public function create()
     {
-
+    return view('databantuan.create',[
+        'title' => 'Tambah Data Bantuan',
+        ]);
     }
 
     /**
@@ -31,7 +33,11 @@ class DatabantuanController extends Controller
      */
     public function store(Request $request)
     {
-        //
+    }
+
+    Databantuan::create($validated);
+    return to_route('databantuan.index')->withSuccess('data berhasil ditambahkan');
+    
     }
 
     /**
