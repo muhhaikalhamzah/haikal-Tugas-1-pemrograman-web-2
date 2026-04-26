@@ -1,7 +1,7 @@
 <x-app>
 
     <x-slot:title>{{ $title }}</x-slot>
-    <form method="POST" action="">
+    <form method="POST" action="{{ route('databantuan.store') }}">
         @csrf
         <div class="card shadow ">
             <div class="card-body p-5">
