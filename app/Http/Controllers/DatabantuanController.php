@@ -125,6 +125,7 @@ class DatabantuanController extends Controller
      */
     public function destroy(databantuan $databantuan)
     {
-        //
+            $databantuan->delete($databantuan);
+    return to_route('databantuan.index')->withSuccess('data berhasil dihapus');
     }
 }

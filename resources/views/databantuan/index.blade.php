@@ -1,6 +1,11 @@
 <x-app>
 
     <x-slot:title>{{ $title }}</x-slot>
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
 
     <a class="btn btn-primary mb-3" href="{{ route('databantuan.create') }}" role="button">tambah data</a>
     <div class="container mt-5">
@@ -22,29 +27,37 @@
                                 <th>Aksi</th>
                             </tr>
                         </thead>
+                        <tbody>
+                            @foreach ($databantuans as $index => $databantuan)
+                                <tr>
+                                    <td>{{ $index + 1 }}</td>
+                                    <td>{{ $databantuan->nokk }}</td>
+                                    <td>{{ $databantuan->nik }}</td>
+                                    <td>{{ $databantuan->namapenerima }}</td>
+                                    <td>{{ $databantuan->jeniskelamin }}</td>
+                                    <td>{{ $databantuan->alamat }}</td>
+                                    <td>{{ $databantuan->pekerjaan }}</td>
+                                    <td>{{ $databantuan->keterangan }}</td>
+                                    <td>
+                                        <div class="d-flex justify-content">
+                                            <a href="{{ route('databantuan.edit', $databantuan) }}"
+                                                class="btn btn-warning m-1">edit</a>
+
+
+                                            <form action="{{ route('databantuan.destroy', $databantuan) }}"
+                                                method="POST">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-danger m-1"
+                                                    onclick="return confirm('Anda Yakin')">Delete</button>
+                                            </form>
+                                        </div>
+                                    </td>
+
+
+                                </tr>
+                            @endforeach
                         </tbody>
-                        @foreach ($databantuans as $index => $databantuan)
-                            <tr>
-                                <td>{{ $index + 1 }}</td>
-                                <td>{{ $databantuan->nokk }}</td>
-                                <td>{{ $databantuan->nik }}</td>
-                                <td>{{ $databantuan->namapenerima }}</td>
-                                <td>{{ $databantuan->jeniskelamin }}</td>
-                                <td>{{ $databantuan->alamat }}</td>
-                                <td>{{ $databantuan->pekerjaan }}</td>
-                                <td>{{ $databantuan->keterangan }}</td>
-                                <td>
-                                    <div class="d-flex justify-content">
-                                        <a href="{{ route('databantuan.edit', $databantuan) }}"
-                                            class="btn btn-warning m-1">edit</a>
-                                        <a href="" class="btn btn-danger m-1">hapus</a>
-                                    </div>
-                                </td>
-
-
-                            </tr>
-                        @endforeach
-
                     </table>
 
                 </div>

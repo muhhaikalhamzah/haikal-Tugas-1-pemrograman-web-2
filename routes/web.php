@@ -9,3 +9,4 @@ Route::post('/databantuan/store', [DatabantuanController::class, 'store'])->name
 Route::resource('databantuan', DatabantuanController::class);
 Route::post('/databantuan/{databantuan}/edit', [DatabantuanController::class, 'edit'])->name('databantuan.edit');
 Route::put('/databantuan/{databantuan}', [DatabantuanController::class, 'update'])->name('databantuan.update');
+Route::delete('/databantuan/{databantuan}', [DatabantuanController::class, 'destroy'])->name('databantuan.destroy');
