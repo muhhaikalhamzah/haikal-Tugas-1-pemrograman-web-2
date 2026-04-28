@@ -7,3 +7,5 @@ Route::get('/databantuan', [DatabantuanController::class, 'index'])->name('datab
 Route::get('/databantuan/create', [DatabantuanController::class, 'create'])->name('databantuan.create');
 Route::post('/databantuan/store', [DatabantuanController::class, 'store'])->name('databantuan.store');
 Route::resource('databantuan', DatabantuanController::class);
+Route::post('/databantuan/{databantuan}/edit', [DatabantuanController::class, 'edit'])->name('databantuan.edit');
+Route::put('/databantuan/{databantuan}', [DatabantuanController::class, 'update'])->name('databantuan.update');

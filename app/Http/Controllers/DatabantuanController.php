@@ -70,7 +70,7 @@ class DatabantuanController extends Controller
      */
     public function show(Databantuan $databantuan)
     {
-        //
+        
     }
 
     /**
@@ -78,7 +78,10 @@ class DatabantuanController extends Controller
      */
     public function edit(Databantuan $databantuan)
     {
-        //
+     return view('databantuan.edit', [
+        'title' => 'edit data bantuan',
+        'databantuan' => $databantuan,
+        ]);
     }
 
     /**
@@ -86,7 +89,35 @@ class DatabantuanController extends Controller
      */
     public function update(Request $request, databantuan $databantuan)
     {
-        //
+        $validated = $request->validate([
+            'nokk' => 'required|digits:11|numeric',
+            'nik' => 'required|digits:11|numeric',
+            'jeniskelamin' => 'required|in:Laki-Laki',
+            'namapenerima' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'pekerjaan' => 'required|string|max:255',
+            'keterangan' => 'required|string|max:255',
+        ], [
+        'nokk.required' => 'NOKK tidak boleh kosong',
+        'nokk.digits' => 'NOKK wajib :digits',
+        'nokk.numeric' => 'NOKK Wajib angka',
+        'nik.required' => 'NIK Wajib diisi',
+        'nik.digits' => 'NIK Wajib :digits digit',
+        'nik.numeric' => 'NIK Wajib Angka',
+        'jeniskelamin' => 'Wajib Ada',
+        'namapenerima.required' => 'Tidak boleh kosong',
+        'namapenerima.max' => 'Tidak boleh lebi dari :max karakter',
+        'alamat.required' => 'Alamat Wajib di isi',
+        'alamat.max' => 'Tidak Boleh Lebih dari :max karakter',
+        'pekerjaan.required' => 'Pekerjaan Wajib Diisi',
+        'pekerjaan.max' => 'Tidak boleh lebih dari :max karakter',
+        'keterangan.required' => 'Keterangan wajib diisi',
+        'keterangan.max' => 'Tidak boleh lebih dari :max karakter',
+        ]);
+    
+
+    $databantuan->update($validated);
+    return to_route('databantuan.index')->withSuccess('data berhasil diubah');
     }
 
     /**

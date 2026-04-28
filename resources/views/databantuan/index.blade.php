@@ -35,7 +35,8 @@
                                 <td>{{ $databantuan->keterangan }}</td>
                                 <td>
                                     <div class="d-flex justify-content">
-                                        <a href="" class="btn btn-warning m-1">edit</a>
+                                        <a href="{{ route('databantuan.edit', $databantuan) }}"
+                                            class="btn btn-warning m-1">edit</a>
                                         <a href="" class="btn btn-danger m-1">hapus</a>
                                     </div>
                                 </td>
