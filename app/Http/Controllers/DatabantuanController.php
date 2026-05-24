@@ -13,8 +13,8 @@ class DatabantuanController extends Controller
     public function index()
     {
         return view('databantuan.index', [
-        'title' => 'APLIKASI BANSOS',
-        'databantuans' => Databantuan::latest()->get()
+            'title' => 'APLIKASI BANSOS',
+            'databantuans' => Databantuan::latest('')->get(),
         ]);
     }
 
@@ -23,8 +23,8 @@ class DatabantuanController extends Controller
      */
     public function create()
     {
-    return view('databantuan.create',[
-        'title' => 'Tambah Data Bantuan',
+        return view('databantuan.create', [
+            'title' => 'Tambah Data Bantuan',
         ]);
     }
 
@@ -36,51 +36,47 @@ class DatabantuanController extends Controller
         $validated = $request->validate([
             'nokk' => 'required|digits:11|numeric',
             'nik' => 'required|digits:11|numeric',
-            'jeniskelamin' => 'required|in:Laki-Laki',
+            'jeniskelamin' => 'required|in:Laki-Laki,Perempuan',
             'namapenerima' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
             'pekerjaan' => 'required|string|max:255',
             'keterangan' => 'required|string|max:255',
         ], [
-        'nokk.required' => 'NOKK tidak boleh kosong',
-        'nokk.digits' => 'NOKK wajib :digits',
-        'nokk.numeric' => 'NOKK Wajib angka',
-        'nik.required' => 'NIK Wajib diisi',
-        'nik.digits' => 'NIK Wajib :digits digit',
-        'nik.numeric' => 'NIK Wajib Angka',
-        'jeniskelamin' => 'Wajib Ada',
-        'namapenerima.required' => 'Tidak boleh kosong',
-        'namapenerima.max' => 'Tidak boleh lebi dari :max karakter',
-        'alamat.required' => 'Alamat Wajib di isi',
-        'alamat.max' => 'Tidak Boleh Lebih dari :max karakter',
-        'pekerjaan.required' => 'Pekerjaan Wajib Diisi',
-        'pekerjaan.max' => 'Tidak boleh lebih dari :max karakter',
-        'keterangan.required' => 'Keterangan wajib diisi',
-        'keterangan.max' => 'Tidak boleh lebih dari :max karakter',
+            'nokk.required' => 'NOKK tidak boleh kosong',
+            'nokk.digits' => 'NOKK wajib :digits',
+            'nokk.numeric' => 'NOKK Wajib angka',
+            'nik.required' => 'NIK Wajib diisi',
+            'nik.digits' => 'NIK Wajib :digits digit',
+            'nik.numeric' => 'NIK Wajib Angka',
+            'jeniskelamin' => 'Wajib Ada',
+            'namapenerima.required' => 'Tidak boleh kosong',
+            'namapenerima.max' => 'Tidak boleh lebi dari :max karakter',
+            'alamat.required' => 'Alamat Wajib di isi',
+            'alamat.max' => 'Tidak Boleh Lebih dari :max karakter',
+            'pekerjaan.required' => 'Pekerjaan Wajib Diisi',
+            'pekerjaan.max' => 'Tidak boleh lebih dari :max karakter',
+            'keterangan.required' => 'Keterangan wajib diisi',
+            'keterangan.max' => 'Tidak boleh lebih dari :max karakter',
         ]);
-    
 
-    Databantuan::create($validated);
-    return to_route('databantuan.index')->withSuccess('data berhasil ditambahkan');
-    
+
+        Databantuan::create($validated);
+        return to_route('databantuan.index')->withSuccess('data berhasil ditambahkan');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Databantuan $databantuan)
-    {
-        
-    }
+    public function show(Databantuan $databantuan) {}
 
     /**
      * Show the form for editing the specified resource.
      */
     public function edit(Databantuan $databantuan)
     {
-     return view('databantuan.edit', [
-        'title' => 'edit data bantuan',
-        'databantuan' => $databantuan,
+        return view('databantuan.edit', [
+            'title' => 'edit data bantuan',
+            'databantuan' => $databantuan,
         ]);
     }
 
@@ -92,32 +88,32 @@ class DatabantuanController extends Controller
         $validated = $request->validate([
             'nokk' => 'required|digits:11|numeric',
             'nik' => 'required|digits:11|numeric',
-            'jeniskelamin' => 'required|in:Laki-Laki',
+            'jeniskelamin' => 'required|in:Laki-Laki,Perempuan',
             'namapenerima' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',
             'pekerjaan' => 'required|string|max:255',
             'keterangan' => 'required|string|max:255',
         ], [
-        'nokk.required' => 'NOKK tidak boleh kosong',
-        'nokk.digits' => 'NOKK wajib :digits',
-        'nokk.numeric' => 'NOKK Wajib angka',
-        'nik.required' => 'NIK Wajib diisi',
-        'nik.digits' => 'NIK Wajib :digits digit',
-        'nik.numeric' => 'NIK Wajib Angka',
-        'jeniskelamin' => 'Wajib Ada',
-        'namapenerima.required' => 'Tidak boleh kosong',
-        'namapenerima.max' => 'Tidak boleh lebi dari :max karakter',
-        'alamat.required' => 'Alamat Wajib di isi',
-        'alamat.max' => 'Tidak Boleh Lebih dari :max karakter',
-        'pekerjaan.required' => 'Pekerjaan Wajib Diisi',
-        'pekerjaan.max' => 'Tidak boleh lebih dari :max karakter',
-        'keterangan.required' => 'Keterangan wajib diisi',
-        'keterangan.max' => 'Tidak boleh lebih dari :max karakter',
+            'nokk.required' => 'NOKK tidak boleh kosong',
+            'nokk.digits' => 'NOKK wajib :digits',
+            'nokk.numeric' => 'NOKK Wajib angka',
+            'nik.required' => 'NIK Wajib diisi',
+            'nik.digits' => 'NIK Wajib :digits digit',
+            'nik.numeric' => 'NIK Wajib Angka',
+            'jeniskelamin' => 'Wajib Ada',
+            'namapenerima.required' => 'Tidak boleh kosong',
+            'namapenerima.max' => 'Tidak boleh lebi dari :max karakter',
+            'alamat.required' => 'Alamat Wajib di isi',
+            'alamat.max' => 'Tidak Boleh Lebih dari :max karakter',
+            'pekerjaan.required' => 'Pekerjaan Wajib Diisi',
+            'pekerjaan.max' => 'Tidak boleh lebih dari :max karakter',
+            'keterangan.required' => 'Keterangan wajib diisi',
+            'keterangan.max' => 'Tidak boleh lebih dari :max karakter',
         ]);
-    
 
-    $databantuan->update($validated);
-    return to_route('databantuan.index')->withSuccess('data berhasil diubah');
+
+        $databantuan->update($validated);
+        return to_route('databantuan.index')->withSuccess('data berhasil diubah');
     }
 
     /**
@@ -125,7 +121,7 @@ class DatabantuanController extends Controller
      */
     public function destroy(databantuan $databantuan)
     {
-            $databantuan->delete($databantuan);
-    return to_route('databantuan.index')->withSuccess('data berhasil dihapus');
+        $databantuan->delete($databantuan);
+        return to_route('databantuan.index')->withSuccess('data berhasil dihapus');
     }
 }
