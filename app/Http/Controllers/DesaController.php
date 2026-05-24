@@ -12,7 +12,15 @@ class DesaController extends Controller
      */
     public function index()
     {
-        //
+        $desas = Desa::latest('');
+        $keyword = request('keyword');
+        if ($keyword) {
+            $desas->where('nama_desa', 'like', '%' . $keyword . '%');
+        }
+        return view('desa.index', [
+            'title' => 'Desa',
+            'desas' => $desas->paginate(5),
+        ]);
     }
 
     /**

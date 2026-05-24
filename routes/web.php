@@ -1,5 +1,7 @@
 <?php
+
 use App\Http\Controllers\DatabantuanController;
+use App\Http\Controllers\DesaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DatabantuanController::class, 'index']);
@@ -10,3 +12,4 @@ Route::resource('databantuan', DatabantuanController::class);
 Route::post('/databantuan/{databantuan}/edit', [DatabantuanController::class, 'edit'])->name('databantuan.edit');
 Route::put('/databantuan/{databantuan}', [DatabantuanController::class, 'update'])->name('databantuan.update');
 Route::delete('/databantuan/{databantuan}', [DatabantuanController::class, 'destroy'])->name('databantuan.destroy');
+Route::get('desa/index', [DesaController::class, 'index'])->name('desa.index');
