@@ -12,7 +12,7 @@ class DesaController extends Controller
      */
     public function index()
     {
-        $desas = Desa::latest();
+        $desas = Desa::latest('id');
         $keyword = request('keyword');
         if ($keyword) {
             $desas->where('nama_desa', 'like', '%' . '$keyword' . '%');
@@ -68,7 +68,10 @@ class DesaController extends Controller
      */
     public function edit(Desa $desa)
     {
-        //
+        return view('desa.edit', [
+            'title' => 'Ubah Data Desa',
+            'desa' => $desa
+        ]);
     }
 
     /**
@@ -76,7 +79,21 @@ class DesaController extends Controller
      */
     public function update(Request $request, Desa $desa)
     {
-        //
+        $validated = $request->validate([
+            'nama_desa' => 'required|max:255',
+            'kecamatan' => 'required',
+            'kabupaten' => 'required',
+        ], [
+            'nama_desa.required' => 'Nama Desa Wajib diisi',
+            'nama_desa.max' => 'Nama Desa Maksimal 255 karakter',
+            'kecamatan.required' => 'Kecamatan Wajib diisi',
+            'kecamatan.max' => 'Kecamatan Maksimal 255 karakter',
+            'kabupaten.required' => 'Kabupaten Wajib diisi',
+            'kabupaten.max' => 'Kabupaten Maksimal 255 karakter',
+
+        ]);
+        $desa->update($validated);
+        return to_route('desa.index')->withSuccess('Desa Berhasil diedit');
     }
 
     /**

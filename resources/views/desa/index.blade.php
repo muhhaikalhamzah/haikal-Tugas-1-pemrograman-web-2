@@ -30,6 +30,7 @@
                                     <th>Nama Desa</th>
                                     <th>Kecamatan</th>
                                     <th>Kabupaten</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody class="text-center">
@@ -40,6 +41,12 @@
                                         <td>{{ $desa->nama_desa }}</td>
                                         <td>{{ $desa->kecamatan }}</td>
                                         <td>{{ $desa->kabupaten }}</td>
+                                        <td>
+                                            <div class=" d-flex justify-content-center gap-2">
+                                                <a href="{{ route('desa.edit', $desa) }}"
+                                                    class="btn btn-warning btn-sm">Edit</a>
+                                            </div>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
