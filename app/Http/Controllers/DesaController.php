@@ -12,10 +12,10 @@ class DesaController extends Controller
      */
     public function index()
     {
-        $desas = Desa::latest('');
+        $desas = Desa::latest();
         $keyword = request('keyword');
         if ($keyword) {
-            $desas->where('nama_desa', 'like', '%' . $keyword . '%');
+            $desas->where('nama_desa', 'like', '%' . '$keyword' . '%');
         }
         return view('desa.index', [
             'title' => 'Desa',
@@ -28,7 +28,9 @@ class DesaController extends Controller
      */
     public function create()
     {
-        //
+        return view('desa.create', [
+            'title' => 'Tambah Data Desa'
+        ]);
     }
 
     /**
@@ -36,7 +38,21 @@ class DesaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'nama_desa' => 'required|max:255',
+            'kecamatan' => 'required',
+            'kabupaten' => 'required',
+        ], [
+            'nama_desa.required' => 'Nama Desa Wajib diisi',
+            'nama_desa.max' => 'Nama Desa Maksimal 255 karakter',
+            'kecamatan.required' => 'Kecamatan Wajib diisi',
+            'kecamatan.max' => 'Kecamatan Maksimal 255 karakter',
+            'kabupaten.required' => 'Kabupaten Wajib diisi',
+            'kabupaten.max' => 'Kabupaten Maksimal 255 karakter',
+
+        ]);
+        Desa::create($validated);
+        return to_route('desa.index')->withSuccess('Desa berhasil ditambahkan');
     }
 
     /**

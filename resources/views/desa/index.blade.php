@@ -1,6 +1,11 @@
 <x-app>
     <x-slot:title>{{ $title }}</x-slot:title>
-    <a hreaf="#" class="btn btn-primary mb-3" role="button">Tambah Data</a>
+    @session('success')
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endsession
+    <a href="{{ route('desa.create') }}" class="btn btn-primary mb-3" role="button">Tambah Data</a>
     <form action="">
         <div class="row g-3  mb-3 align-items-center">
             <div class="col-md-6">
