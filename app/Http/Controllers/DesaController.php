@@ -60,7 +60,10 @@ class DesaController extends Controller
      */
     public function show(Desa $desa)
     {
-        //
+        return view('desa.show', [
+            'title' => 'Detai Desa',
+            'desa' => $desa
+        ]);
     }
 
     /**

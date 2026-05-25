@@ -44,6 +44,8 @@
                                     <td>{{ $desa->kabupaten }}</td>
                                     <td>
                                         <div class=" d-flex justify-content-center gap-2">
+                                            <a href="{{ route('desa.show', $desa) }}"
+                                                class="btn btn-info btn-sm">Detail</a>
                                             <a href="{{ route('desa.edit', $desa) }}"
                                                 class="btn btn-warning btn-sm">Edit</a>
                                             <form action="{{ route('desa.destroy', $desa) }}" method="POST">

@@ -16,6 +16,7 @@ Route::post('/desa/store', [DesaController::class, 'store'])->name('desa.store')
 Route::get('/desa/{desa}/edit', [DesaController::class, 'edit'])->name('desa.edit');
 Route::put('/desa/{desa}', [DesaController::class, 'update'])->name('desa.update');
 Route::delete('/desa/{desa}', [DesaController::class, 'destroy'])->name('desa.destroy');
+Route::get('/desa/{desa}', [DesaController::class, 'show'])->name('desa.show');
 
 
 Route::post('/databantuan/{databantuan}/edit', [DatabantuanController::class, 'edit'])->name('databantuan.edit');
