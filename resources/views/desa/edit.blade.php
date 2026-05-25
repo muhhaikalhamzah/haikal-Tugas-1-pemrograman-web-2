@@ -19,7 +19,7 @@
 
                         <input type="text" name="nama_desa"
                             class="form-control @error('nama_desa') is-invalid @enderror"
-                            value="{{ old('nama_desa', $desa) }}">
+                            value="{{ old('nama_desa', $desa->nama_desa) }}">
 
                         @error('nama_desa')
                             <div class="invalid-feedback">
@@ -35,7 +35,7 @@
 
                         <input type="text" name="kecamatan"
                             class="form-control @error('kecamatan') is-invalid @enderror"
-                            value="{{ old('kecamatan', $desa) }}">
+                            value="{{ old('kecamatan', $desa->kecamatan) }}">
 
                         @error('kecamatan')
                             <div class="invalid-feedback">
@@ -51,7 +51,7 @@
 
                         <input type="text" name="kabupaten"
                             class="form-control @error('kabupaten') is-invalid @enderror"
-                            value="{{ old('kabupaten', $desa) }}">
+                            value="{{ old('kabupaten', $desa->kabupaten) }}">
 
                         @error('kabupaten')
                             <div class="invalid-feedback">

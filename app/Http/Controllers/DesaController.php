@@ -101,6 +101,7 @@ class DesaController extends Controller
      */
     public function destroy(Desa $desa)
     {
-        //
+        $desa->delete($desa);
+        return to_route('desa.index')->withSuccess('Desa Berhasil dihapus');
     }
 }
