@@ -68,7 +68,7 @@
 
                 <tbody>
 
-                    @forelse ($penerimaBantuans as $p)
+                    @foreach ($penerimaBantuans as $p)
                         <tr>
                             <td>{{ $penerimaBantuans->firstItem() + $loop->index }}</td>
                             <td>{{ $p->nama_penerima }}</td>
@@ -98,13 +98,15 @@
                                 </form>
                             </td>
                         </tr>
-                    @empty
+                    @endforeach
+
+                    @if ($penerimaBantuans->isEmpty())
                         <tr>
                             <td colspan="7" class="text-center">
                                 Data Tidak Ditemukan
                             </td>
                         </tr>
-                    @endforelse
+                    @endif
 
                 </tbody>
             </table>

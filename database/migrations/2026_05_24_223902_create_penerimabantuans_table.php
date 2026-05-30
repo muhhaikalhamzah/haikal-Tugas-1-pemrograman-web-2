@@ -6,25 +6,20 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('penerimabantuans', function (Blueprint $table) {
             $table->id();
             $table->foreignId('desa_id')->constrained('desas')->cascadeOnDelete();
-            $table->integer('nokk');
+            $table->string('nokk')->unique();
+            $table->string('nik')->unique();
             $table->string('nama_penerima');
             $table->string('jenis_kelamin');
-            $table->string('alamat');
+            $table->text('alamat');
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('penerimabantuans');

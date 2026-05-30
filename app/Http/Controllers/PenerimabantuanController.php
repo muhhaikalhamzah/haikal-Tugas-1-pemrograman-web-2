@@ -53,4 +53,35 @@ class PenerimabantuanController extends Controller
             'desas' => $desas
         ]);
     }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'desa_id'       => 'required|exists:desas,id',
+            'nokk'          => 'required|string|unique:penerimabantuans,nokk',
+            'nik'           => 'required|string|unique:penerimabantuans,nik',
+            'nama_penerima' => 'required|string|max:255',
+            'jenis_kelamin'  => 'required|in:Laki-Laki,Perempuan',
+            'alamat'        => 'required|string|max:500',
+        ], [
+            'desa_id.required'     => 'Desa wajib dipilih',
+            'nokk.required'        => 'NOKK tidak boleh kosong',
+            'nokk.unique'          => 'NOKK sudah terdaftar',
+            'nik.required'         => 'NIK tidak boleh kosong',
+            'nik.unique'           => 'NIK sudah terdaftar',
+            'nama_penerima.required' => 'Nama penerima tidak boleh kosong',
+            'jenis_kelamin.required' => 'Jenis kelamin wajib dipilih',
+            'jenis_kelamin.in'       => 'Jenis kelamin harus Laki-Laki atau Perempuan',
+            'alamat.required'      => 'Alamat wajib diisi',
+        ]);
+
+        Penerimabantuan::create($validated);
+
+        return redirect()
+            ->route('penerimabantuan.index')
+            ->with('success', 'Data penerima bantuan berhasil ditambahkan.');
+    }
 }

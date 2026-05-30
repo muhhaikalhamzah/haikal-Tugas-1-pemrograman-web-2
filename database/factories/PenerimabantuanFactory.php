@@ -19,15 +19,8 @@ class PenerimabantuanFactory extends Factory
     {
         return [
             'desa_id' => Desa::inRandomOrder()->first()->id,
-
-            'nokk' => fake()->randomElement([
-                '730101000001',
-                '730101000002',
-                '730101000003',
-                '730101000004',
-                '730101000005',
-            ]),
-
+            'nokk' => fake()->numerify('###########'),
+            'nik'  => fake()->numerify('###########'),
             'nama_penerima' => fake()->randomElement([
                 'Muh Haikal Hamzah',
                 'Andi Akbar',
@@ -37,12 +30,11 @@ class PenerimabantuanFactory extends Factory
                 'Fadli Ahmad',
                 'Putri Maharani',
                 'Rizal Ramadhan',
+                'Aisyah Putri',
+                'Budi Santoso'
             ]),
 
-            'jenis_kelamin' => fake()->randomElement([
-                'Laki-Laki',
-                'Perempuan',
-            ]),
+            'jenis_kelamin' => fake()->randomElement(['Laki-Laki', 'Perempuan']),
 
             'alamat' => fake()->randomElement([
                 'Jl. Perintis Kemerdekaan',
@@ -51,6 +43,7 @@ class PenerimabantuanFactory extends Factory
                 'Jl. Bontoala',
                 'Jl. Barabaraya',
                 'Jl. Sudiang Raya',
+                'Jl. Urip Sumoharjo'
             ]),
         ];
     }
