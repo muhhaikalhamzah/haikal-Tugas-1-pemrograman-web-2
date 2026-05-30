@@ -6,7 +6,6 @@
             {{ session('success') }}
         </div>
     @endif
-
     <a class="btn btn-primary mb-3" href="{{ route('databantuan.create') }}" role="button">tambah data</a>
     <div class="container mt-5">
         <div class="card shadow ">
@@ -42,8 +41,6 @@
                                         <div class="d-flex justify-content">
                                             <a href="{{ route('databantuan.edit', $databantuan) }}"
                                                 class="btn btn-warning m-1">edit</a>
-
-
                                             <form action="{{ route('databantuan.destroy', $databantuan) }}"
                                                 method="POST">
                                                 @method('DELETE')
@@ -53,15 +50,11 @@
                                             </form>
                                         </div>
                                     </td>
-
-
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
-
                 </div>
-
             </div>
         </div>
     </div>

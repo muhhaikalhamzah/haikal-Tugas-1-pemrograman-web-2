@@ -12,14 +12,33 @@ class DesaController extends Controller
      */
     public function index()
     {
-        $desas = Desa::latest('id');
+        $query = Desa::query();
+
         $keyword = request('keyword');
+
         if ($keyword) {
-            $desas->where('nama_desa', 'like', '%' . '$keyword' . '%');
+            $query->where(function ($q) use ($keyword) {
+                $q->where('nama_desa', 'like', '%' . $keyword . '%')
+                    ->orWhere('kecamatan', 'like', '%' . $keyword . '%')
+                    ->orWhere('kabupaten', 'like', '%' . $keyword . '%');
+            });
         }
+
+        if (request('nama_desa')) {
+            $query->where('nama_desa', request('nama_desa'));
+        }
+
+        $desas = $query->latest()->paginate(10);
+
+        $filterDesas = Desa::select('nama_desa')
+            ->distinct()
+            ->orderBy('nama_desa')
+            ->get();
+
         return view('desa.index', [
-            'title' => 'Desa',
-            'desas' => $desas->paginate(5),
+            'title' => 'Data Desa',
+            'desas' => $desas,
+            'filterDesas' => $filterDesas,
         ]);
     }
 
@@ -40,19 +59,15 @@ class DesaController extends Controller
     {
         $validated = $request->validate([
             'nama_desa' => 'required|max:255',
-            'kecamatan' => 'required',
-            'kabupaten' => 'required',
-        ], [
-            'nama_desa.required' => 'Nama Desa Wajib diisi',
-            'nama_desa.max' => 'Nama Desa Maksimal 255 karakter',
-            'kecamatan.required' => 'Kecamatan Wajib diisi',
-            'kecamatan.max' => 'Kecamatan Maksimal 255 karakter',
-            'kabupaten.required' => 'Kabupaten Wajib diisi',
-            'kabupaten.max' => 'Kabupaten Maksimal 255 karakter',
-
+            'kecamatan' => 'required|max:255',
+            'kabupaten' => 'required|max:255',
         ]);
+
         Desa::create($validated);
-        return to_route('desa.index')->withSuccess('Desa berhasil ditambahkan');
+
+        return redirect()
+            ->route('desa.index')
+            ->with('success', 'Data desa berhasil ditambahkan.');
     }
 
     /**
@@ -61,7 +76,7 @@ class DesaController extends Controller
     public function show(Desa $desa)
     {
         return view('desa.show', [
-            'title' => 'Detai Desa',
+            'title' => 'Detail Desa',
             'desa' => $desa
         ]);
     }
@@ -72,7 +87,7 @@ class DesaController extends Controller
     public function edit(Desa $desa)
     {
         return view('desa.edit', [
-            'title' => 'Ubah Data Desa',
+            'title' => 'Edit Desa',
             'desa' => $desa
         ]);
     }
@@ -84,19 +99,15 @@ class DesaController extends Controller
     {
         $validated = $request->validate([
             'nama_desa' => 'required|max:255',
-            'kecamatan' => 'required',
-            'kabupaten' => 'required',
-        ], [
-            'nama_desa.required' => 'Nama Desa Wajib diisi',
-            'nama_desa.max' => 'Nama Desa Maksimal 255 karakter',
-            'kecamatan.required' => 'Kecamatan Wajib diisi',
-            'kecamatan.max' => 'Kecamatan Maksimal 255 karakter',
-            'kabupaten.required' => 'Kabupaten Wajib diisi',
-            'kabupaten.max' => 'Kabupaten Maksimal 255 karakter',
-
+            'kecamatan' => 'required|max:255',
+            'kabupaten' => 'required|max:255',
         ]);
+
         $desa->update($validated);
-        return to_route('desa.index')->withSuccess('Desa Berhasil diedit');
+
+        return redirect()
+            ->route('desa.index')
+            ->with('success', 'Data desa berhasil diubah.');
     }
 
     /**
@@ -104,7 +115,10 @@ class DesaController extends Controller
      */
     public function destroy(Desa $desa)
     {
-        $desa->delete($desa);
-        return to_route('desa.index')->withSuccess('Desa Berhasil dihapus');
+        $desa->delete();
+
+        return redirect()
+            ->route('desa.index')
+            ->with('success', 'Data desa berhasil dihapus.');
     }
 }

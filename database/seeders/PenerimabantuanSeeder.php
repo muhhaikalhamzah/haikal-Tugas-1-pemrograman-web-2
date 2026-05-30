@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Databantuan;
+use App\Models\Penerimabantuan;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,6 +13,6 @@ class PenerimabantuanSeeder extends Seeder
      */
     public function run(): void
     {
-        Databantuan::factory()->count(500)->create();
+        Penerimabantuan::factory()->count(500)->create();
     }
 }

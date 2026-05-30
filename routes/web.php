@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DatabantuanController;
+use App\Http\Controllers\PenerimabantuanController;
 use App\Http\Controllers\DesaController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,6 +18,14 @@ Route::get('/desa/{desa}/edit', [DesaController::class, 'edit'])->name('desa.edi
 Route::put('/desa/{desa}', [DesaController::class, 'update'])->name('desa.update');
 Route::delete('/desa/{desa}', [DesaController::class, 'destroy'])->name('desa.destroy');
 Route::get('/desa/{desa}', [DesaController::class, 'show'])->name('desa.show');
+
+Route::get('/penerimabantuan', [PenerimabantuanController::class, 'index'])->name('penerimabantuan.index');
+Route::get('/penerimabantuan/create', [PenerimabantuanController::class, 'create'])->name('penerimabantuan.create');
+Route::post('/penerimabantuan/store', [PenerimabantuanController::class, 'store'])->name('penerimabantuan.store');
+Route::get('/penerimabantuan/{penerimabantuan}/edit', [PenerimabantuanController::class, 'edit'])->name('penerimabantuan.edit');
+Route::put('/penerimabantuan/{penerimabantuan}', [PenerimabantuanController::class, 'update'])->name('penerimabantuan.update');
+Route::delete('/penerimabantuan/{penerimabantuan}', [PenerimabantuanController::class, 'destroy'])->name('penerimabantuan.destroy');
+Route::get('/penerimabantuan/{penerimabantuan}', [PenerimabantuanController::class, 'show'])->name('penerimabantuan.show');
 
 
 Route::post('/databantuan/{databantuan}/edit', [DatabantuanController::class, 'edit'])->name('databantuan.edit');

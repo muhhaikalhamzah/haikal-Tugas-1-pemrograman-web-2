@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Desa;
 use App\Models\Penerimabantuan;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,32 @@ class PenerimabantuanController extends Controller
      */
     public function index()
     {
-        //
+        $query = Penerimabantuan::with('desa');
+
+        $keyword = request('keyword');
+        if ($keyword) {
+            $query->where(function ($q) use ($keyword) {
+                $q->where('nama_penerima', 'like', '%' . $keyword . '%')
+                    ->orWhere('nokk', 'like', '%' . $keyword . '%');
+            });
+        }
+
+        if (request('alamat')) {
+            $query->where('alamat', request('alamat'));
+        }
+
+        $penerimaBantuans = $query->latest()->paginate(10);
+
+        $alamats = Penerimabantuan::select('alamat')
+            ->distinct()
+            ->orderBy('alamat')
+            ->pluck('alamat');
+
+        return view('penerimabantuan.index', [
+            'title' => 'Data Penerima Bantuan',
+            'penerimaBantuans' => $penerimaBantuans,
+            'alamats' => $alamats,
+        ]);
     }
 
     /**
@@ -20,46 +46,11 @@ class PenerimabantuanController extends Controller
      */
     public function create()
     {
-        //
-    }
+        $desas = Desa::all();
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Penerimabantuan $penerimabantuan)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Penerimabantuan $penerimabantuan)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Penerimabantuan $penerimabantuan)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Penerimabantuan $penerimabantuan)
-    {
-        //
+        return view('penerimabantuan.create', [
+            'title' => 'Tambah Data Penerima Bantuan',
+            'desas' => $desas
+        ]);
     }
 }
