@@ -19,7 +19,8 @@ class PenerimabantuanController extends Controller
         if ($keyword) {
             $query->where(function ($q) use ($keyword) {
                 $q->where('nama_penerima', 'like', '%' . $keyword . '%')
-                    ->orWhere('nokk', 'like', '%' . $keyword . '%');
+                    ->orWhere('nokk', 'like', '%' . $keyword . '%')
+                    ->orWhere('nik', 'like', '%' . $keyword . '%');
             });
         }
 
@@ -47,7 +48,6 @@ class PenerimabantuanController extends Controller
     public function create()
     {
         $desas = Desa::all();
-
         return view('penerimabantuan.create', [
             'title' => 'Tambah Data Penerima Bantuan',
             'desas' => $desas
@@ -64,7 +64,7 @@ class PenerimabantuanController extends Controller
             'nokk'          => 'required|string|unique:penerimabantuans,nokk',
             'nik'           => 'required|string|unique:penerimabantuans,nik',
             'nama_penerima' => 'required|string|max:255',
-            'jenis_kelamin'  => 'required|in:Laki-Laki,Perempuan',
+            'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
             'alamat'        => 'required|string|max:500',
         ], [
             'desa_id.required'     => 'Desa wajib dipilih',
@@ -74,7 +74,6 @@ class PenerimabantuanController extends Controller
             'nik.unique'           => 'NIK sudah terdaftar',
             'nama_penerima.required' => 'Nama penerima tidak boleh kosong',
             'jenis_kelamin.required' => 'Jenis kelamin wajib dipilih',
-            'jenis_kelamin.in'       => 'Jenis kelamin harus Laki-Laki atau Perempuan',
             'alamat.required'      => 'Alamat wajib diisi',
         ]);
 
@@ -83,5 +82,63 @@ class PenerimabantuanController extends Controller
         return redirect()
             ->route('penerimabantuan.index')
             ->with('success', 'Data penerima bantuan berhasil ditambahkan.');
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Penerimabantuan $penerimabantuan)
+    {
+        $desas = Desa::all();
+
+        return view('penerimabantuan.edit', [
+            'title' => 'Ubah Data Penerima Bantuan',
+            'penerimabantuan' => $penerimabantuan,
+            'desas' => $desas,
+        ]);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, Penerimabantuan $penerimabantuan)
+    {
+        $validated = $request->validate([
+            'desa_id'        => 'required|exists:desas,id',
+            'nokk'           => 'required|string|unique:penerimabantuans,nokk,' . $penerimabantuan->id,
+            'nik'            => 'required|string|unique:penerimabantuans,nik,' . $penerimabantuan->id,
+            'nama_penerima'  => 'required|string|max:255',
+            'jenis_kelamin'  => 'required|in:Laki-Laki,Perempuan',
+            'alamat'         => 'required|string|max:500',
+        ], [
+            'desa_id.required'     => 'Desa wajib dipilih',
+            'nokk.unique'          => 'NOKK sudah terdaftar',
+            'nik.unique'           => 'NIK sudah terdaftar',
+            'nama_penerima.required' => 'Nama penerima wajib diisi',
+            'jenis_kelamin.required' => 'Jenis kelamin wajib dipilih',
+            'alamat.required'      => 'Alamat wajib diisi',
+        ]);
+
+        $penerimabantuan->update($validated);
+
+        return redirect()
+            ->route('penerimabantuan.index')
+            ->with('success', 'Data penerima bantuan berhasil diperbarui.');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Penerimabantuan $penerimabantuan)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Penerimabantuan $penerimabantuan)
+    {
+        //
     }
 }
