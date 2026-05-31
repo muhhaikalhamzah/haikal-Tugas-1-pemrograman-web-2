@@ -142,6 +142,9 @@ class PenerimabantuanController extends Controller
      */
     public function show(Penerimabantuan $penerimabantuan)
     {
-        //
+        return view('penerimabantuan.show', [
+            'title' => 'Detail Penerima Bantuan',
+            'penerimabantuan' => $penerimabantuan,
+        ]);
     }
 }
