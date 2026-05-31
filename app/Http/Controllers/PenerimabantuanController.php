@@ -131,7 +131,10 @@ class PenerimabantuanController extends Controller
      */
     public function destroy(Penerimabantuan $penerimabantuan)
     {
-        //
+        $penerimabantuan->delete();
+        return redirect()
+            ->route('penerimabantuan.index')
+            ->with('success', 'Data penerima bantuan berhasil dihapus.');
     }
 
     /**

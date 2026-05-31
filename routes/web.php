@@ -24,7 +24,8 @@ Route::get('/penerimabantuan/create', [PenerimabantuanController::class, 'create
 Route::post('/penerimabantuan/store', [PenerimabantuanController::class, 'store'])->name('penerimabantuan.store');
 Route::get('/penerimabantuan/{penerimabantuan}/edit', [PenerimabantuanController::class, 'edit'])->name('penerimabantuan.edit');
 Route::put('/penerimabantuan/{penerimabantuan}', [PenerimabantuanController::class, 'update'])->name('penerimabantuan.update');
-
+Route::delete('/penerimabantuan/{penerimabantuan}', [PenerimabantuanController::class, 'destroy'])->name('penerimabantuan.destroy');
+Route::get('/penerimabantuan/{penerimabantuan}', [PenerimabantuanController::class, 'show'])->name('penerimabantuan.show');
 
 Route::get('/databantuan/{databantuan}/edit', [DatabantuanController::class, 'edit'])->name('databantuan.edit');
 Route::put('/databantuan/{databantuan}', [DatabantuanController::class, 'update'])->name('databantuan.update');
