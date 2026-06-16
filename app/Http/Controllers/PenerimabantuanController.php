@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Desa;
 use App\Models\Penerimabantuan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PenerimabantuanController extends Controller
 {
@@ -60,28 +61,40 @@ class PenerimabantuanController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'desa_id'       => 'required|exists:desas,id',
-            'nokk'          => 'required|string|unique:penerimabantuans,nokk',
-            'nik'           => 'required|string|unique:penerimabantuans,nik',
-            'nama_penerima' => 'required|string|max:255',
-            'jenis_kelamin' => 'required|in:Laki-Laki,Perempuan',
-            'alamat'        => 'required|string|max:500',
+            'desa_id'         => 'required|exists:desas,id',
+            'nokk'            => 'required|string|unique:penerimabantuans,nokk',
+            'nik'             => 'required|string|unique:penerimabantuans,nik',
+            'nama_penerima'   => 'required|string|max:255',
+            'jenis_kelamin'   => 'required|in:Laki-Laki,Perempuan',
+            'alamat'          => 'required|string|max:500',
+            'status_penerima' => 'required|in:Aktif,Tidak Aktif',
         ], [
-            'desa_id.required'     => 'Desa wajib dipilih',
-            'nokk.required'        => 'NOKK tidak boleh kosong',
-            'nokk.unique'          => 'NOKK sudah terdaftar',
-            'nik.required'         => 'NIK tidak boleh kosong',
-            'nik.unique'           => 'NIK sudah terdaftar',
-            'nama_penerima.required' => 'Nama penerima tidak boleh kosong',
-            'jenis_kelamin.required' => 'Jenis kelamin wajib dipilih',
-            'alamat.required'      => 'Alamat wajib diisi',
+            'desa_id.required'        => 'Desa wajib dipilih',
+            'nokk.required'           => 'NOKK tidak boleh kosong',
+            'nokk.unique'             => 'NOKK sudah terdaftar',
+            'nik.required'            => 'NIK tidak boleh kosong',
+            'nik.unique'              => 'NIK sudah terdaftar',
+            'nama_penerima.required'  => 'Nama penerima tidak boleh kosong',
+            'jenis_kelamin.required'  => 'Jenis kelamin wajib dipilih',
+            'alamat.required'         => 'Alamat wajib diisi',
+            'status_penerima.required' => 'Status penerima wajib dipilih',
         ]);
 
-        Penerimabantuan::create($validated);
+        try {
+            DB::beginTransaction();
 
-        return redirect()
-            ->route('penerimabantuan.index')
-            ->with('success', 'Data penerima bantuan berhasil ditambahkan.');
+            Penerimabantuan::create($validated);
+
+            DB::commit();
+            return redirect()
+                ->route('penerimabantuan.index')
+                ->with('success', 'Data penerima bantuan berhasil ditambahkan.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()
+                ->route('penerimabantuan.create')
+                ->with('error', 'Terjadi kesalahan saat menyimpan data.');
+        }
     }
 
     /**

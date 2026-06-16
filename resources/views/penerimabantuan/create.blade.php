@@ -52,7 +52,6 @@
                     @enderror
                 </div>
 
-                <!-- Jenis Kelamin yang sudah diperbaiki -->
                 <div class="mb-3">
                     <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
                     <select class="form-select @error('jenis_kelamin') is-invalid @enderror" name="jenis_kelamin"
@@ -73,6 +72,20 @@
                     <input type="text" class="form-control @error('alamat') is-invalid @enderror" name="alamat"
                         value="{{ old('alamat') }}" required>
                     @error('alamat')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
+                    <label for="status_penerima" class="form-label">Status Penerima</label>
+                    <select class="form-select @error('status_penerima') is-invalid @enderror" name="status_penerima"
+                        required>
+                        <option value="">Pilih</option>
+                        <option value="Aktif" {{ old('status_penerima') == 'Aktif' ? 'selected' : '' }}>Aktif</option>
+                        <option value="Tidak Aktif" {{ old('status_penerima') == 'Tidak Aktif' ? 'selected' : '' }}>
+                            Tidak Aktif</option>
+                    </select>
+                    @error('status_penerima')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
