@@ -195,4 +195,16 @@ class PenerimabantuanController extends Controller
             ->route('penerimabantuan.trash')
             ->with('success', 'Data penerima bantuan berhasil dikembalikan.');
     }
+
+    /**
+     * Permanently delete trashed resource.
+     */
+    public function forceDelete($id)
+    {
+        $penerimabantuan = Penerimabantuan::onlyTrashed()->findOrFail($id);
+        $penerimabantuan->forceDelete();
+        return redirect()
+            ->route('penerimabantuan.trash')
+            ->with('success', 'Data penerima bantuan berhasil dihapus permanen.');
+    }
 }

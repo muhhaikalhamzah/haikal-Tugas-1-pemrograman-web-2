@@ -35,6 +35,10 @@
                         <a class="nav-link {{ request()->routeIs('penerimabantuan.*') ? 'active' : '' }}"
                             href="{{ route('penerimabantuan.index') }}">Penerima Bantuan</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ request()->routeIs('penerimabantuan.trash') ? 'active' : '' }}"
+                            href="{{ route('penerimabantuan.trash') }}">Trash</a>
+                    </li>
                 </ul>
             </div>
         </div>

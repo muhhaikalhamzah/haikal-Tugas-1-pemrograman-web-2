@@ -21,15 +21,15 @@ Route::get('/desa/{desa}', [DesaController::class, 'show'])->name('desa.show');
 
 Route::get('/penerimabantuan', [PenerimabantuanController::class, 'index'])->name('penerimabantuan.index');
 Route::get('/penerimabantuan/create', [PenerimabantuanController::class, 'create'])->name('penerimabantuan.create');
+Route::get('/penerimabantuan/trash', [PenerimabantuanController::class, 'trash'])->name('penerimabantuan.trash');
 Route::post('/penerimabantuan/store', [PenerimabantuanController::class, 'store'])->name('penerimabantuan.store');
 Route::get('/penerimabantuan/{penerimabantuan}/edit', [PenerimabantuanController::class, 'edit'])->name('penerimabantuan.edit');
 Route::put('/penerimabantuan/{penerimabantuan}', [PenerimabantuanController::class, 'update'])->name('penerimabantuan.update');
 Route::delete('/penerimabantuan/{penerimabantuan}', [PenerimabantuanController::class, 'destroy'])->name('penerimabantuan.destroy');
 Route::get('/penerimabantuan/{penerimabantuan}', [PenerimabantuanController::class, 'show'])->name('penerimabantuan.show');
+Route::put('/penerimabantuan/{id}/restore', [PenerimabantuanController::class, 'restore'])->name('penerimabantuan.restore')->withTrashed();
+Route::delete('/penerimabantuan/{id}/force-delete', [PenerimabantuanController::class, 'forceDelete'])->name('penerimabantuan.forceDelete')->withTrashed();
 
 Route::get('/databantuan/{databantuan}/edit', [DatabantuanController::class, 'edit'])->name('databantuan.edit');
 Route::put('/databantuan/{databantuan}', [DatabantuanController::class, 'update'])->name('databantuan.update');
 Route::delete('/databantuan/{databantuan}', [DatabantuanController::class, 'destroy'])->name('databantuan.destroy');
-
-Route::get('/penerimabantuan/trash', [PenerimabantuanController::class, 'trash'])->name('penerimabantuan.trash');
-Route::put('/penerimabantuan/{id}/restore', [PenerimabantuanController::class, 'restore'])->name('penerimabantuan.restore')->withTrashed();
