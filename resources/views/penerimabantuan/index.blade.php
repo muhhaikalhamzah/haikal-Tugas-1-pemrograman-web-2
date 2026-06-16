@@ -62,6 +62,7 @@
                         <th>Jenis Kelamin</th>
                         <th>Alamat</th>
                         <th>Desa</th>
+                        <th>Status</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -76,7 +77,11 @@
                             <td>{{ $p->jenis_kelamin }}</td>
                             <td>{{ $p->alamat }}</td>
                             <td>{{ $p->desa?->nama_desa }}</td>
-
+                            <td>
+                                <span class="badge {{ $p->status_penerima == 'Aktif' ? 'bg-success' : 'bg-danger' }}">
+                                    {{ $p->status_penerima }}
+                                </span>
+                            </td>
                             <td>
                                 <a href="{{ route('penerimabantuan.show', $p) }}" class="btn btn-info btn-sm">
                                     Detail
@@ -102,7 +107,7 @@
 
                     @if ($penerimaBantuans->isEmpty())
                         <tr>
-                            <td colspan="7" class="text-center">
+                            <td colspan="8" class="text-center">
                                 Data Tidak Ditemukan
                             </td>
                         </tr>
