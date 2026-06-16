@@ -32,3 +32,4 @@ Route::put('/databantuan/{databantuan}', [DatabantuanController::class, 'update'
 Route::delete('/databantuan/{databantuan}', [DatabantuanController::class, 'destroy'])->name('databantuan.destroy');
 
 Route::get('/penerimabantuan/trash', [PenerimabantuanController::class, 'trash'])->name('penerimabantuan.trash');
+Route::put('/penerimabantuan/{id}/restore', [PenerimabantuanController::class, 'restore'])->name('penerimabantuan.restore')->withTrashed();

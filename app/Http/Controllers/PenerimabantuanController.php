@@ -183,4 +183,16 @@ class PenerimabantuanController extends Controller
             'penerimaBantuans' => Penerimabantuan::onlyTrashed()->latest()->get()
         ]);
     }
+
+    /**
+     * Restore trashed resource.
+     */
+    public function restore($id)
+    {
+        $penerimabantuan = Penerimabantuan::onlyTrashed()->findOrFail($id);
+        $penerimabantuan->restore();
+        return redirect()
+            ->route('penerimabantuan.trash')
+            ->with('success', 'Data penerima bantuan berhasil dikembalikan.');
+    }
 }
