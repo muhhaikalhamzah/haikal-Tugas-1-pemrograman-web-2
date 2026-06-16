@@ -7,6 +7,12 @@
         </div>
     @endsession
 
+    @session('error')
+        <div class="alert alert-danger">
+            {{ session('error') }}
+        </div>
+    @endsession
+
     <div class="d-flex justify-content-between mb-3">
         <h3 class="text-center w-100">Ubah Data Penerima Bantuan</h3>
     </div>
@@ -64,6 +70,18 @@
                 <div class="mb-3">
                     <label class="form-label">Alamat</label>
                     <textarea name="alamat" class="form-control" rows="3" required>{{ old('alamat', $penerimabantuan->alamat) }}</textarea>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Status Penerima</label>
+                    <select name="status_penerima" class="form-select" required>
+                        <option value="Aktif"
+                            {{ old('status_penerima', $penerimabantuan->status_penerima) == 'Aktif' ? 'selected' : '' }}>
+                            Aktif</option>
+                        <option value="Tidak Aktif"
+                            {{ old('status_penerima', $penerimabantuan->status_penerima) == 'Tidak Aktif' ? 'selected' : '' }}>
+                            Tidak Aktif</option>
+                    </select>
                 </div>
 
                 <div class="mt-4 text-center">

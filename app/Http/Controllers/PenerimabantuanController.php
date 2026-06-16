@@ -117,26 +117,38 @@ class PenerimabantuanController extends Controller
     public function update(Request $request, Penerimabantuan $penerimabantuan)
     {
         $validated = $request->validate([
-            'desa_id'        => 'required|exists:desas,id',
-            'nokk'           => 'required|string|unique:penerimabantuans,nokk,' . $penerimabantuan->id,
-            'nik'            => 'required|string|unique:penerimabantuans,nik,' . $penerimabantuan->id,
-            'nama_penerima'  => 'required|string|max:255',
-            'jenis_kelamin'  => 'required|in:Laki-Laki,Perempuan',
-            'alamat'         => 'required|string|max:500',
+            'desa_id'         => 'required|exists:desas,id',
+            'nokk'            => 'required|string|unique:penerimabantuans,nokk,' . $penerimabantuan->id,
+            'nik'             => 'required|string|unique:penerimabantuans,nik,' . $penerimabantuan->id,
+            'nama_penerima'   => 'required|string|max:255',
+            'jenis_kelamin'   => 'required|in:Laki-Laki,Perempuan',
+            'alamat'          => 'required|string|max:500',
+            'status_penerima' => 'required|in:Aktif,Tidak Aktif',
         ], [
-            'desa_id.required'     => 'Desa wajib dipilih',
-            'nokk.unique'          => 'NOKK sudah terdaftar',
-            'nik.unique'           => 'NIK sudah terdaftar',
-            'nama_penerima.required' => 'Nama penerima wajib diisi',
-            'jenis_kelamin.required' => 'Jenis kelamin wajib dipilih',
-            'alamat.required'      => 'Alamat wajib diisi',
+            'desa_id.required'         => 'Desa wajib dipilih',
+            'nokk.unique'              => 'NOKK sudah terdaftar',
+            'nik.unique'               => 'NIK sudah terdaftar',
+            'nama_penerima.required'   => 'Nama penerima wajib diisi',
+            'jenis_kelamin.required'   => 'Jenis kelamin wajib dipilih',
+            'alamat.required'          => 'Alamat wajib diisi',
+            'status_penerima.required' => 'Status penerima wajib dipilih',
         ]);
 
-        $penerimabantuan->update($validated);
+        try {
+            DB::beginTransaction();
 
-        return redirect()
-            ->route('penerimabantuan.index')
-            ->with('success', 'Data penerima bantuan berhasil diperbarui.');
+            $penerimabantuan->update($validated);
+
+            DB::commit();
+            return redirect()
+                ->route('penerimabantuan.index')
+                ->with('success', 'Data penerima bantuan berhasil diperbarui.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()
+                ->route('penerimabantuan.edit', $penerimabantuan)
+                ->with('error', 'Terjadi kesalahan saat memperbarui data.');
+        }
     }
 
     /**
