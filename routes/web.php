@@ -30,3 +30,5 @@ Route::get('/penerimabantuan/{penerimabantuan}', [PenerimabantuanController::cla
 Route::get('/databantuan/{databantuan}/edit', [DatabantuanController::class, 'edit'])->name('databantuan.edit');
 Route::put('/databantuan/{databantuan}', [DatabantuanController::class, 'update'])->name('databantuan.update');
 Route::delete('/databantuan/{databantuan}', [DatabantuanController::class, 'destroy'])->name('databantuan.destroy');
+
+Route::get('/penerimabantuan/trash', [PenerimabantuanController::class, 'trash'])->name('penerimabantuan.trash');

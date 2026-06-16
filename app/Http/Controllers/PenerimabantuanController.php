@@ -69,14 +69,14 @@ class PenerimabantuanController extends Controller
             'alamat'          => 'required|string|max:500',
             'status_penerima' => 'required|in:Aktif,Tidak Aktif',
         ], [
-            'desa_id.required'        => 'Desa wajib dipilih',
-            'nokk.required'           => 'NOKK tidak boleh kosong',
-            'nokk.unique'             => 'NOKK sudah terdaftar',
-            'nik.required'            => 'NIK tidak boleh kosong',
-            'nik.unique'              => 'NIK sudah terdaftar',
-            'nama_penerima.required'  => 'Nama penerima tidak boleh kosong',
-            'jenis_kelamin.required'  => 'Jenis kelamin wajib dipilih',
-            'alamat.required'         => 'Alamat wajib diisi',
+            'desa_id.required'         => 'Desa wajib dipilih',
+            'nokk.required'            => 'NOKK tidak boleh kosong',
+            'nokk.unique'              => 'NOKK sudah terdaftar',
+            'nik.required'             => 'NIK tidak boleh kosong',
+            'nik.unique'               => 'NIK sudah terdaftar',
+            'nama_penerima.required'   => 'Nama penerima tidak boleh kosong',
+            'jenis_kelamin.required'   => 'Jenis kelamin wajib dipilih',
+            'alamat.required'          => 'Alamat wajib diisi',
             'status_penerima.required' => 'Status penerima wajib dipilih',
         ]);
 
@@ -170,6 +170,17 @@ class PenerimabantuanController extends Controller
         return view('penerimabantuan.show', [
             'title' => 'Detail Penerima Bantuan',
             'penerimabantuan' => $penerimabantuan,
+        ]);
+    }
+
+    /**
+     * Display trashed resources.
+     */
+    public function trash()
+    {
+        return view('penerimabantuan.trash', [
+            'title' => 'Trash Penerima Bantuan',
+            'penerimaBantuans' => Penerimabantuan::onlyTrashed()->latest()->get()
         ]);
     }
 }
